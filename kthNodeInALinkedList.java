@@ -155,13 +155,43 @@ class LinkedListCustom{
     }
 
     public LinkedListNode reverseLinkedListRecursive(LinkedListNode current){
-        if(current.next!=null){
+        if(current.next==null){
             return current;
         }
         LinkedListNode head = reverseLinkedListRecursive(current.next);
+        System.out.println("Head: "+head.number);
+        System.out.println("Current: "+current.number);
+        System.out.println("Current.next: "+current.next.number);
         current.next.next = current;
         current.next = null;
         return head;
+    }
+
+    public LinkedListNode reverseLinkedListInGroupsOfK(int k){
+        return reverseLinkedListInGroupsOfK(head,k);
+    }
+    public LinkedListNode reverseLinkedListInGroupsOfK(LinkedListNode head, int k){
+
+        LinkedListNode current, previous, next;
+        current = head;
+        previous = null;
+        next = null;
+        int count = 0;
+        while(current!=null && count <k){
+            next = current.next;
+            current.next = previous;
+            previous = current;
+            current =next;
+            ++count;
+//            System.out.print(k);
+        }
+
+        if(next!=null){
+            head.next = reverseLinkedListInGroupsOfK(next,k);
+//            System.out.println("Calling next from: "+head.number);
+        }
+//        head = previous;
+        return previous;
     }
 }
 
@@ -192,9 +222,11 @@ public class kthNodeInALinkedList {
 		linkedList.printLinkedList();
 
         linkedList.reverseLinkedList();
+        linkedList.printLinkedList();
 
         System.out.println("\nReverse linked list recursively");
         linkedList.head = linkedList.reverseLinkedListRecursive(linkedList.head);
+        System.out.println("Head is: "+linkedList.head.number);
         linkedList.printLinkedList();
 
         LinkedListNode randomNodeFromMiddle = linkedList.returnARandomNodeFromMiddle();
@@ -204,6 +236,14 @@ public class kthNodeInALinkedList {
             System.out.println("\n\nRandom node with number: " +nodeValue+" has been successfully deleted!");
             linkedList.printLinkedList();
         }
+//        for(int i=6; i>=1; --i){
+//            linkedList.addNodeToEndOfLinkedList(new LinkedListNode(i));
+//        }
+//        linkedList.printLinkedList();
+        int K=3;
+        System.out.println("\n\nReversing the linkedList in groups of K: "+K);
+        linkedList.head = linkedList.reverseLinkedListInGroupsOfK(K);
+        linkedList.printLinkedList();
 	}
 	
 }

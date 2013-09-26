@@ -5,7 +5,7 @@
  * Time: 1:38 AM
  * To change this template use File | Settings | File Templates.
  */
-class soLinkedListNode {
+class LinkedListNode {
     int number;
     LinkedListNode next;
 
